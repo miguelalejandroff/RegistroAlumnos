@@ -25,8 +25,8 @@ public partial class CrearEstudiante : ContentPage
 		Curso curso = cursoPicker.SelectedItem as Curso;
 
 		var estudiante = new Estudiante
-		{
-			PrimerNombre = primerNombreEntry.Text,
+        {
+            PrimerNombre = primerNombreEntry.Text,
 			SegundoNombre = segundoNombreEntry.Text,
 			PrimerApellido = primerApellidoEntry.Text,
 			SegundoApellido = segundoApellidoEntry.Text,
@@ -34,7 +34,7 @@ public partial class CrearEstudiante : ContentPage
 			FechaInsripcion = fechaInscripcionPicker.Date,
 			Edad = int.Parse(edadEntry.Text),
 			Curso = curso
-		};
+        };
 		try
 		{
             await _client.Child("Estudiantes").PostAsync(estudiante);

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:RegistroEmpleados.AppMovil.ViewModels"
+             xmlns:models="clr-namespace:RegistroEmpleados.Modelos.Modelos;assembly=RegistroEmpleados.Modelos"
+             x:DataType="vm:ListarEstudianteViewModel"
              x:Class="RegistroEmpleados.AppMovil.Vistas.ListarEstudiante"
              Title="ListarEstudiante">
     <ScrollView>
@@ -15,27 +18,28 @@
             </Grid.ColumnDefinitions>
 
             <SearchBar Placeholder="Buscar..."
-                   x:Name="filtroSearchBar"
                    Grid.Row="0"
                    Grid.Column="0"
-                   TextChanged="filtroSearchBar_TextChanged"
+                   Text="{Binding BuscarEstudianteCommand}"
             />
             
             <Button Text="Nuevo Estudiante"
-                x:Name="NuevoEstudianteBoton"
                 Grid.Row="0"
                 Grid.Column="1"
-                Clicked="NuevoEstudianteBoton_Clicked"
+                Command="{Binding AgregarEstudianteCommand}"
             />
 
-            <CollectionView x:Name="ListaCollection" 
-                            ItemsSource="{Binding Lista}"
+            <CollectionView ItemsSource="{Binding Estudiantes}"
                             Grid.Row="1"
                             Grid.ColumnSpan="2">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ColumnSpacing="10" Padding="5">
-                            
+                    <DataTemplate x:DataType="{x:Type vm:EstudianteContext}" >
+                        <Grid ColumnSpacing="10" Padding="5" >
+                            <Grid.GestureRecognizers>
+                                <!--<TapGestureRecognizer Command="{Binding Source={StaticResource EstudiantesViewModel}, Path=VerDetallesCommand}"
+                                                      CommandParameter="{Binding}" />-->
+                            </Grid.GestureRecognizers>
+
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -43,7 +47,9 @@
                             
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="50" />
                             </Grid.ColumnDefinitions>
                             
                             <Image Grid.RowSpan="2"
@@ -54,13 +60,26 @@
                             
                             <Label Grid.Column="1"
                                    Grid.Row="0"
-                                   Text="{Binding NombreCompleto}"
+                                   Text="{Binding Estudiante.NombreCompleto}"
                                    FontAttributes="Bold"
                                    FontSize="20"/>
                             
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Text="{Binding Curso.Nombre}" />
+                                   Text="{Binding Estudiante.Curso.Nombre}" />
+
+                            <!-- Iconos de acción -->
+                             <Button Grid.Column="2"
+                                    Grid.RowSpan="2"
+                                    Text="✏️"
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding ViewModel.EditarEstudianteCommand}"/>
+                            
+                            <Button Grid.Column="3"
+                                    Grid.RowSpan="2"
+                                    Text="🗑️"
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding ViewModel.DesactivarEstudianteCommand}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

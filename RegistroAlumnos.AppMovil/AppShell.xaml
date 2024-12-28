@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="RegistroAlumnos.AppMovil.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RegistroAlumnos.AppMovil"
+    xmlns:views="clr-namespace:RegistroAlumnos.AppMovil.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="RegistroAlumnos.AppMovil">
+
+    <ShellContent Title="Listar Estudiantes"
+                  ContentTemplate="{DataTemplate views:ListarEstudiantes}"
+                  Route="ListarEstudiantes"/>
+    <ShellContent Title="Crear Estudiante"
+                  ContentTemplate="{DataTemplate views:CrearEstudiante}"
+                  Route="CrearEstudiante"/>
+    <ShellContent Title="Editar Estudiante"
+                  ContentTemplate="{DataTemplate views:EditarEstudiante}"
+                  Route="EditarEstudiante"/>
+</Shell>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RegistroAlumnos.AppMovil.Views.ListarEstudiantes"
+             xmlns:vm="clr-namespace:RegistroAlumnos.AppMovil.ViewModels"
+             xmlns:models="clr-namespace:RegistroAlumnos.Models.Models;assembly=RegistroAlumnos.Models"
+             x:DataType="vm:ListarEstudiantesViewModel"
+             Title="ListarEstudiantes">
+
+    <Grid>
+    <!-- Indicador de carga -->
+    <ActivityIndicator IsRunning="{Binding IsLoading}" 
+                           IsVisible="{Binding IsLoading}" 
+                           VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="CenterAndExpand"/>
+
+    <!-- Contenido principal -->
+        <ScrollView IsVisible="{Binding IsContentVisible}">
+
+            <Grid Padding="10" RowSpacing="10" ColumnSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+
+                <SearchBar Placeholder="Buscar..."
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Text="{Binding TextoBusqueda, Mode=TwoWay}" />
+
+                <Button Text="Nuevo Estudiante"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Clicked="Button_Clicked"/>
+
+                <CollectionView ItemsSource="{Binding EstudiantesFiltrados}"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type models:Estudiante}" >
+                            <Grid ColumnSpacing="10" Padding="5" >
+                                <Grid.GestureRecognizers>
+                                    <!--<TapGestureRecognizer Command="{Binding VerDetallesCommand}" />-->
+                                </Grid.GestureRecognizers>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="50" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.RowSpan="2"
+                                       Source="user_icon.png"
+                                       Aspect="AspectFill"
+                                       HeightRequest="60"
+                                       WidthRequest="60"/>
+
+                                <Label Grid.Column="1"
+                                       Grid.Row="0"
+                                       Text="{Binding NombreCompleto}"
+                                       FontAttributes="Bold"
+                                       FontSize="20"/>
+
+                                <Label Grid.Column="1"
+                                       Grid.Row="1"
+                                       Text="{Binding Curso.Nombre}" />
+
+                                <!-- Iconos de acción -->
+                                <Button Grid.Column="2"
+                                        Grid.RowSpan="2"
+                                        Text="✏️"
+                                        BackgroundColor="Transparent"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="editarButton_Clicked"/>
+                                
+
+                                <Button Grid.Column="3"
+                                        Grid.RowSpan="2"
+                                        Text="🗑️"
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ListarEstudiantesViewModel}}, Path=DesactivarEstudianteCommand}"
+                                        CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

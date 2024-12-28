@@ -15,7 +15,14 @@ namespace RegistroEmpleados.AppMovil.servicios
 
         private FirebaseService()
         {
-            _client = new FirebaseClient(FirebaseUrl);
+            try
+            {
+                _client = new FirebaseClient(FirebaseUrl);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inicializando FirebaseClient: {ex.Message}");
+            }
         }
 
         public static FirebaseService Instance

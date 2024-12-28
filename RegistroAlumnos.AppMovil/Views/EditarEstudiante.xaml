@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RegistroAlumnos.AppMovil.Views.EditarEstudiante"
+             xmlns:vm="clr-namespace:RegistroAlumnos.AppMovil.ViewModels"
+             x:DataType="vm:EditarEstudianteViewModel"
+             Title="EditarEstudiante">
+    <StackLayout Padding="10" Spacing="10">
+        <Label Text="Primer Nombre:" />
+        <Entry Text="{Binding PrimerNombre}" />
+
+        <Label Text="Segundo Nombre:" />
+        <Entry Text="{Binding SegundoNombre}" />
+
+        <Label Text="Primer Apellido:" />
+        <Entry Text="{Binding PrimerApellido}" />
+
+        <Label Text="Segundo Apellido:" />
+        <Entry Text="{Binding SegundoApellido}" />
+
+        <Label Text="Correo Electrónico:" />
+        <Entry Text="{Binding CorreoElectronico}" Keyboard="Email" />
+
+        <Label Text="Seleccionar Curso:" />
+        <Picker ItemsSource="{Binding ListaCursos}"
+                SelectedItem="{Binding CursoSeleccionado}"
+                ItemDisplayBinding="{Binding Nombre}" />
+
+        <Label Text="Edad:" />
+        <Entry Text="{Binding Edad}" Keyboard="Numeric" />
+
+        <Label Text="Estado:" />
+        <Switch IsToggled="{Binding Estado}" />
+
+        <Button Text="Actualizar"
+                Command="{Binding ActualizarEstudianteCommand}" />
+    </StackLayout>
+</ContentPage>

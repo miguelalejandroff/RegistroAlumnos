@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:RegistroAlumnos.AppMovil.ViewModels"
+             x:Class="RegistroAlumnos.AppMovil.Views.CrearEstudiante"
+             x:DataType="vm:CrearEstudianteViewModel"
+             Title="CrearEstudiante">
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        <!-- Picker para seleccionar un curso -->
+        <Picker Title="Seleccionar Curso"
+                ItemsSource="{Binding Cursos}"
+                SelectedItem="{Binding CursoSeleccionado, Mode=TwoWay}"
+                ItemDisplayBinding="{Binding Nombre}" />
+
+        <!-- Entradas de texto para datos del estudiante -->
+        <Entry Placeholder="Primer Nombre" Text="{Binding PrimerNombre}" />
+        <Entry Placeholder="Segundo Nombre" Text="{Binding SegundoNombre}" />
+        <Entry Placeholder="Primer Apellido" Text="{Binding PrimerApellido}" />
+        <Entry Placeholder="Segundo Apellido" Text="{Binding SegundoApellido}" />
+        <Entry Placeholder="Correo Electrónico" Text="{Binding CorreoElectronico}" />
+        <Entry Placeholder="Edad" Text="{Binding Edad}" Keyboard="Numeric" />
+
+        <Label Text="Estado:" />
+        <Switch IsToggled="{Binding Estado}" />
+        
+        <!-- Selección de fecha -->
+        <DatePicker Date="{Binding FechaInscripcion}" />
+
+        <!-- Botón para guardar el estudiante -->
+        <Button Text="Guardar" Command="{Binding GuardarEstudianteCommand}" />
+
+    </VerticalStackLayout>
+</ContentPage>
